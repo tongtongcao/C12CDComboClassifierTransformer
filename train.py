@@ -58,9 +58,9 @@ def parse_args():
     parser.add_argument("--lr", type=float, default=1e-3)
 
     # Transformer parameters
-    parser.add_argument("--hidden_dim", type=int, default=32)
-    parser.add_argument("--nhead", type=int, default=4)
-    parser.add_argument("--num_layers", type=int, default=2)
+    parser.add_argument("--hidden_dim", type=int, default=64)
+    parser.add_argument("--nhead", type=int, default=2)
+    parser.add_argument("--num_layers", type=int, default=4)
 
     # Output
     parser.add_argument("--outdir", type=str, default="outputs/local")

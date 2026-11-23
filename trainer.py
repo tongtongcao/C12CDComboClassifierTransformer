@@ -163,7 +163,7 @@ class comboClassifierTransformer(pl.LightningModule):
     """
     NUM_TOKENS: Final[int] = 9
 
-    def __init__(self, hidden_dim=32, nhead=4, num_layers=2, lr=1e-3, pos_weight=1):
+    def __init__(self, hidden_dim=64, nhead=2, num_layers=4, lr=1e-3, pos_weight=1):
 
         super().__init__()
 
@@ -313,8 +313,17 @@ class comboClassifierTransformer(pl.LightningModule):
     # --------------------------------------------------
 
     def configure_optimizers(self):
-        return torch.optim.Adam(self.parameters(), lr=self.lr)
+        """
+        Configure optimizer and learning rate scheduler.
 
+        Returns
+        -------
+        dict
+            Dictionary containing the optimizer and learning rate scheduler.
+        """
+        optimizer = torch.optim.Adam(self.parameters(), lr=self.hparams.lr)
+        scheduler = torch.optim.lr_scheduler.StepLR(optimizer, step_size=5, gamma=0.5)
+        return {"optimizer": optimizer, "lr_scheduler": scheduler}
 
 # --------------------------------------------------
 # TorchScript inference wrapper
